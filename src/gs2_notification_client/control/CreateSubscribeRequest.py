@@ -32,12 +32,12 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         super(CreateSubscribeRequest, self).__init__(params)
         if params is None:
             self.__notification_name = None
-            self.__endpoint = None
             self.__type = None
+            self.__endpoint = None
         else:
             self.set_notification_name(params['notificationName'] if 'notificationName' in params.keys() else None)
-            self.set_endpoint(params['endpoint'] if 'endpoint' in params.keys() else None)
             self.set_type(params['type'] if 'type' in params.keys() else None)
+            self.set_endpoint(params['endpoint'] if 'endpoint' in params.keys() else None)
 
     def get_notification_name(self):
         """
@@ -66,33 +66,6 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         self.set_notification_name(notification_name)
         return self
 
-    def get_endpoint(self):
-        """
-        通知先を取得
-        :return: 通知先
-        :rtype: unicode
-        """
-        return self.__endpoint
-
-    def set_endpoint(self, endpoint):
-        """
-        通知先を設定
-        :param endpoint: 通知先
-        :type endpoint: unicode
-        """
-        self.__endpoint = endpoint
-
-    def with_endpoint(self, endpoint):
-        """
-        通知先を設定
-        :param endpoint: 通知先
-        :type endpoint: unicode
-        :return: this
-        :rtype: CreateSubscribeRequest
-        """
-        self.set_endpoint(endpoint)
-        return self
-
     def get_type(self):
         """
         通知に利用する方式を取得
@@ -118,4 +91,31 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :rtype: CreateSubscribeRequest
         """
         self.set_type(type)
+        return self
+
+    def get_endpoint(self):
+        """
+        通知先を取得
+        :return: 通知先
+        :rtype: unicode
+        """
+        return self.__endpoint
+
+    def set_endpoint(self, endpoint):
+        """
+        通知先を設定
+        :param endpoint: 通知先
+        :type endpoint: unicode
+        """
+        self.__endpoint = endpoint
+
+    def with_endpoint(self, endpoint):
+        """
+        通知先を設定
+        :param endpoint: 通知先
+        :type endpoint: unicode
+        :return: this
+        :rtype: CreateSubscribeRequest
+        """
+        self.set_endpoint(endpoint)
         return self
