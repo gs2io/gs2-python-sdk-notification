@@ -49,6 +49,8 @@ class DeleteNotificationRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
+        if not isinstance(notification_name, unicode):
+            raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
     def with_notification_name(self, notification_name):

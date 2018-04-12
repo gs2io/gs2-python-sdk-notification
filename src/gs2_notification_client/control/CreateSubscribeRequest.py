@@ -32,11 +32,15 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         super(CreateSubscribeRequest, self).__init__(params)
         if params is None:
             self.__notification_name = None
-            self.__type = None
-            self.__endpoint = None
         else:
             self.set_notification_name(params['notificationName'] if 'notificationName' in params.keys() else None)
+        if params is None:
+            self.__type = None
+        else:
             self.set_type(params['type'] if 'type' in params.keys() else None)
+        if params is None:
+            self.__endpoint = None
+        else:
             self.set_endpoint(params['endpoint'] if 'endpoint' in params.keys() else None)
 
     def get_notification_name(self):
@@ -53,6 +57,8 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
+        if not isinstance(notification_name, unicode):
+            raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
     def with_notification_name(self, notification_name):
@@ -64,33 +70,6 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :rtype: CreateSubscribeRequest
         """
         self.set_notification_name(notification_name)
-        return self
-
-    def get_type(self):
-        """
-        通知に利用する方式を取得
-        :return: 通知に利用する方式
-        :rtype: unicode
-        """
-        return self.__type
-
-    def set_type(self, type):
-        """
-        通知に利用する方式を設定
-        :param type: 通知に利用する方式
-        :type type: unicode
-        """
-        self.__type = type
-
-    def with_type(self, type):
-        """
-        通知に利用する方式を設定
-        :param type: 通知に利用する方式
-        :type type: unicode
-        :return: this
-        :rtype: CreateSubscribeRequest
-        """
-        self.set_type(type)
         return self
 
     def get_endpoint(self):
@@ -107,6 +86,8 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :param endpoint: 通知先
         :type endpoint: unicode
         """
+        if not isinstance(endpoint, unicode):
+            raise TypeError(type(endpoint))
         self.__endpoint = endpoint
 
     def with_endpoint(self, endpoint):
@@ -118,4 +99,33 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :rtype: CreateSubscribeRequest
         """
         self.set_endpoint(endpoint)
+        return self
+
+    def get_type(self):
+        """
+        通知に利用する方式を取得
+        :return: 通知に利用する方式
+        :rtype: unicode
+        """
+        return self.__type
+
+    def set_type(self, _type):
+        """
+        通知に利用する方式を設定
+        :param _type: 通知に利用する方式
+        :type _type: unicode
+        """
+        if not isinstance(_type, unicode):
+            raise TypeError(type(_type))
+        self.__type = _type
+
+    def with_type(self, _type):
+        """
+        通知に利用する方式を設定
+        :param _type: 通知に利用する方式
+        :type _type: unicode
+        :return: this
+        :rtype: CreateSubscribeRequest
+        """
+        self.set_type(_type)
         return self

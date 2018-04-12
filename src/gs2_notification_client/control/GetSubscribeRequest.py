@@ -32,9 +32,11 @@ class GetSubscribeRequest(Gs2BasicRequest):
         super(GetSubscribeRequest, self).__init__(params)
         if params is None:
             self.__notification_name = None
-            self.__subscribe_id = None
         else:
             self.set_notification_name(params['notificationName'] if 'notificationName' in params.keys() else None)
+        if params is None:
+            self.__subscribe_id = None
+        else:
             self.set_subscribe_id(params['subscribeId'] if 'subscribeId' in params.keys() else None)
 
     def get_notification_name(self):
@@ -51,6 +53,8 @@ class GetSubscribeRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
+        if not isinstance(notification_name, unicode):
+            raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
     def with_notification_name(self, notification_name):
@@ -78,6 +82,8 @@ class GetSubscribeRequest(Gs2BasicRequest):
         :param subscribe_id: 取得する購読IDを指定します。
         :type subscribe_id: unicode
         """
+        if not isinstance(subscribe_id, unicode):
+            raise TypeError(type(subscribe_id))
         self.__subscribe_id = subscribe_id
 
     def with_subscribe_id(self, subscribe_id):

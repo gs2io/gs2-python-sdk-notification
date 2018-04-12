@@ -32,9 +32,11 @@ class CreateNotificationRequest(Gs2BasicRequest):
         super(CreateNotificationRequest, self).__init__(params)
         if params is None:
             self.__name = None
-            self.__description = None
         else:
             self.set_name(params['name'] if 'name' in params.keys() else None)
+        if params is None:
+            self.__description = None
+        else:
             self.set_description(params['description'] if 'description' in params.keys() else None)
 
     def get_name(self):
@@ -51,6 +53,8 @@ class CreateNotificationRequest(Gs2BasicRequest):
         :param name: 通知の名前
         :type name: unicode
         """
+        if not isinstance(name, unicode):
+            raise TypeError(type(name))
         self.__name = name
 
     def with_name(self, name):
@@ -78,6 +82,8 @@ class CreateNotificationRequest(Gs2BasicRequest):
         :param description: 通知の説明
         :type description: unicode
         """
+        if not isinstance(description, unicode):
+            raise TypeError(type(description))
         self.__description = description
 
     def with_description(self, description):

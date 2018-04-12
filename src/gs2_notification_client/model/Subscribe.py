@@ -14,6 +14,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
+
 class Subscribe(object):
 
     def __init__(self, params=None):
@@ -33,7 +34,6 @@ class Subscribe(object):
             self.set_endpoint(params['endpoint'] if 'endpoint' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
-
 
     def get_subscribe_id(self):
         """
@@ -83,22 +83,6 @@ class Subscribe(object):
         """
         self.__owner_id = owner_id
 
-    def get_type(self):
-        """
-        通知方法を取得
-        :return: 通知方法
-        :rtype: unicode
-        """
-        return self.__type
-
-    def set_type(self, type):
-        """
-        通知方法を設定
-        :param type: 通知方法
-        :type type: unicode
-        """
-        self.__type = type
-
     def get_endpoint(self):
         """
         type = email: メールアドレスを取得
@@ -147,8 +131,24 @@ class Subscribe(object):
         """
         self.__update_at = update_at
 
+    def get_type(self):
+        """
+        通知方法を取得
+        :return: 通知方法
+        :rtype: unicode
+        """
+        return self.__type
+
+    def set_type(self, _type):
+        """
+        通知方法を設定
+        :param _type: 通知方法
+        :type _type: unicode
+        """
+        self.__type = _type
+
     def to_dict(self):
-        return { 
+        return {
             "subscribeId": self.__subscribe_id,
             "notificationId": self.__notification_id,
             "ownerId": self.__owner_id,

@@ -14,8 +14,6 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-import json
-
 from gs2_core_client.Gs2Constant import Gs2Constant
 from gs2_core_client.AbstractGs2Client import AbstractGs2Client
 
@@ -34,7 +32,6 @@ class Gs2NotificationClient(AbstractGs2Client):
         """
         super(Gs2NotificationClient, self).__init__(credential, region)
 
-
     def create_notification(self, request):
         """
         通知を新規作成します<br>
@@ -46,27 +43,128 @@ class Gs2NotificationClient(AbstractGs2Client):
         """
         body = { 
             "name": request.get_name(),
-            "description": request.get_description(),
         }
 
+        if request.get_description() is not None:
+            body["description"] = request.get_description()
         headers = { 
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_notification_client.control.CreateNotificationRequest import CreateNotificationRequest
-
         from gs2_notification_client.control.CreateNotificationResult import CreateNotificationResult
         return CreateNotificationResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/notification",
             service=self.ENDPOINT,
-            module=CreateNotificationRequest.Constant.MODULE,
-            function=CreateNotificationRequest.Constant.FUNCTION,
+            component=CreateNotificationRequest.Constant.MODULE,
+            target_function=CreateNotificationRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
+    def delete_notification(self, request):
+        """
+        通知を削除します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_notification_client.control.DeleteNotificationRequest.DeleteNotificationRequest
+        """
+        query_strings = {}
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_notification_client.control.DeleteNotificationRequest import DeleteNotificationRequest
+        self._do_delete_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            service=self.ENDPOINT,
+            component=DeleteNotificationRequest.Constant.MODULE,
+            target_function=DeleteNotificationRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        )
 
+    def describe_notification(self, request):
+        """
+        通知の一覧を取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_notification_client.control.DescribeNotificationRequest.DescribeNotificationRequest
+        :return: 結果
+        :rtype: gs2_notification_client.control.DescribeNotificationResult.DescribeNotificationResult
+        """
+        query_strings = {
+            'pageToken': request.get_page_token(),
+            'limit': request.get_limit(),
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_notification_client.control.DescribeNotificationRequest import DescribeNotificationRequest
 
+        from gs2_notification_client.control.DescribeNotificationResult import DescribeNotificationResult
+        return DescribeNotificationResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/notification",
+            service=self.ENDPOINT,
+            component=DescribeNotificationRequest.Constant.MODULE,
+            target_function=DescribeNotificationRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def get_notification(self, request):
+        """
+        通知を取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_notification_client.control.GetNotificationRequest.GetNotificationRequest
+        :return: 結果
+        :rtype: gs2_notification_client.control.GetNotificationResult.GetNotificationResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_notification_client.control.GetNotificationRequest import GetNotificationRequest
+
+        from gs2_notification_client.control.GetNotificationResult import GetNotificationResult
+        return GetNotificationResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            service=self.ENDPOINT,
+            component=GetNotificationRequest.Constant.MODULE,
+            target_function=GetNotificationRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def update_notification(self, request):
+        """
+        通知を更新します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_notification_client.control.UpdateNotificationRequest.UpdateNotificationRequest
+        :return: 結果
+        :rtype: gs2_notification_client.control.UpdateNotificationResult.UpdateNotificationResult
+        """
+        body = { 
+        }
+        if request.get_description() is not None:
+            body["description"] = request.get_description()
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_notification_client.control.UpdateNotificationRequest import UpdateNotificationRequest
+        from gs2_notification_client.control.UpdateNotificationResult import UpdateNotificationResult
+        return UpdateNotificationResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            service=self.ENDPOINT,
+            component=UpdateNotificationRequest.Constant.MODULE,
+            target_function=UpdateNotificationRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
 
     def create_subscribe(self, request):
         """
@@ -87,47 +185,15 @@ class Gs2NotificationClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_notification_client.control.CreateSubscribeRequest import CreateSubscribeRequest
-
         from gs2_notification_client.control.CreateSubscribeResult import CreateSubscribeResult
         return CreateSubscribeResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe",
             service=self.ENDPOINT,
-            module=CreateSubscribeRequest.Constant.MODULE,
-            function=CreateSubscribeRequest.Constant.FUNCTION,
+            component=CreateSubscribeRequest.Constant.MODULE,
+            target_function=CreateSubscribeRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
-
-
-
-    def delete_notification(self, request):
-        """
-        通知を削除します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_notification_client.control.DeleteNotificationRequest.DeleteNotificationRequest
-
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_notification_client.control.DeleteNotificationRequest import DeleteNotificationRequest
-
-        self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
-            service=self.ENDPOINT,
-            module=DeleteNotificationRequest.Constant.MODULE,
-            function=DeleteNotificationRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        )
-
-
 
     def delete_subscribe(self, request):
         """
@@ -135,80 +201,33 @@ class Gs2NotificationClient(AbstractGs2Client):
         <br>
         :param request: リクエストパラメータ
         :type request: gs2_notification_client.control.DeleteSubscribeRequest.DeleteSubscribeRequest
-
         """
-
-        query_strings = {
-
-        }
+        query_strings = {}
         headers = { 
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_notification_client.control.DeleteSubscribeRequest import DeleteSubscribeRequest
-
         self._do_delete_request(
             url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else request.get_subscribe_id())) + "",
             service=self.ENDPOINT,
-            module=DeleteSubscribeRequest.Constant.MODULE,
-            function=DeleteSubscribeRequest.Constant.FUNCTION,
+            component=DeleteSubscribeRequest.Constant.MODULE,
+            target_function=DeleteSubscribeRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         )
 
-
-
-    def describe_notification(self, request):
-        """
-        通知の一覧を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_notification_client.control.DescribeNotificationRequest.DescribeNotificationRequest
-        :return: 結果
-        :rtype: gs2_notification_client.control.DescribeNotificationResult.DescribeNotificationResult
-        """
-
-        query_strings = {
-
-            'pageToken': request.get_page_token(),
-
-            'limit': request.get_limit(),
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_notification_client.control.DescribeNotificationRequest import DescribeNotificationRequest
-
-        from gs2_notification_client.control.DescribeNotificationResult import DescribeNotificationResult
-        return DescribeNotificationResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification",
-            service=self.ENDPOINT,
-            module=DescribeNotificationRequest.Constant.MODULE,
-            function=DescribeNotificationRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
-
     def describe_subscribe(self, request):
         """
         購読の一覧を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
+        <br>:param request: リクエストパラメータ
         :type request: gs2_notification_client.control.DescribeSubscribeRequest.DescribeSubscribeRequest
         :return: 結果
         :rtype: gs2_notification_client.control.DescribeSubscribeResult.DescribeSubscribeResult
         """
-
         query_strings = {
-
             'pageToken': request.get_page_token(),
-
             'limit': request.get_limit(),
-
         }
         headers = { 
         }
@@ -220,57 +239,21 @@ class Gs2NotificationClient(AbstractGs2Client):
         return DescribeSubscribeResult(self._do_get_request(
             url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe",
             service=self.ENDPOINT,
-            module=DescribeSubscribeRequest.Constant.MODULE,
-            function=DescribeSubscribeRequest.Constant.FUNCTION,
+            component=DescribeSubscribeRequest.Constant.MODULE,
+            target_function=DescribeSubscribeRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         ))
-
-
-
-    def get_notification(self, request):
-        """
-        通知を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_notification_client.control.GetNotificationRequest.GetNotificationRequest
-        :return: 結果
-        :rtype: gs2_notification_client.control.GetNotificationResult.GetNotificationResult
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_notification_client.control.GetNotificationRequest import GetNotificationRequest
-
-        from gs2_notification_client.control.GetNotificationResult import GetNotificationResult
-        return GetNotificationResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
-            service=self.ENDPOINT,
-            module=GetNotificationRequest.Constant.MODULE,
-            function=GetNotificationRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
 
     def get_subscribe(self, request):
         """
         購読を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
+        <br>:param request: リクエストパラメータ
         :type request: gs2_notification_client.control.GetSubscribeRequest.GetSubscribeRequest
         :return: 結果
         :rtype: gs2_notification_client.control.GetSubscribeResult.GetSubscribeResult
         """
-
         query_strings = {
-
         }
         headers = { 
         }
@@ -282,41 +265,8 @@ class Gs2NotificationClient(AbstractGs2Client):
         return GetSubscribeResult(self._do_get_request(
             url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else request.get_subscribe_id())) + "",
             service=self.ENDPOINT,
-            module=GetSubscribeRequest.Constant.MODULE,
-            function=GetSubscribeRequest.Constant.FUNCTION,
+            component=GetSubscribeRequest.Constant.MODULE,
+            target_function=GetSubscribeRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         ))
-
-
-
-    def update_notification(self, request):
-        """
-        通知を更新します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_notification_client.control.UpdateNotificationRequest.UpdateNotificationRequest
-        :return: 結果
-        :rtype: gs2_notification_client.control.UpdateNotificationResult.UpdateNotificationResult
-        """
-        body = { 
-            "description": request.get_description(),
-        }
-
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_notification_client.control.UpdateNotificationRequest import UpdateNotificationRequest
-
-        from gs2_notification_client.control.UpdateNotificationResult import UpdateNotificationResult
-        return UpdateNotificationResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
-            service=self.ENDPOINT,
-            module=UpdateNotificationRequest.Constant.MODULE,
-            function=UpdateNotificationRequest.Constant.FUNCTION,
-            body=body,
-            headers=headers
-        ))
-
-
