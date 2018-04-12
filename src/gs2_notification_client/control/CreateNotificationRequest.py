@@ -53,7 +53,7 @@ class CreateNotificationRequest(Gs2BasicRequest):
         :param name: 通知の名前
         :type name: unicode
         """
-        if not isinstance(name, unicode):
+        if name and not isinstance(name, unicode):
             raise TypeError(type(name))
         self.__name = name
 
@@ -82,7 +82,7 @@ class CreateNotificationRequest(Gs2BasicRequest):
         :param description: 通知の説明
         :type description: unicode
         """
-        if not isinstance(description, unicode):
+        if description and not isinstance(description, unicode):
             raise TypeError(type(description))
         self.__description = description
 

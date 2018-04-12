@@ -57,7 +57,7 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
-        if not isinstance(notification_name, unicode):
+        if notification_name and not isinstance(notification_name, unicode):
             raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
@@ -86,7 +86,7 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :param endpoint: 通知先
         :type endpoint: unicode
         """
-        if not isinstance(endpoint, unicode):
+        if endpoint and not isinstance(endpoint, unicode):
             raise TypeError(type(endpoint))
         self.__endpoint = endpoint
 
@@ -115,7 +115,7 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         :param _type: 通知に利用する方式
         :type _type: unicode
         """
-        if not isinstance(_type, unicode):
+        if _type and not isinstance(_type, unicode):
             raise TypeError(type(_type))
         self.__type = _type
 
