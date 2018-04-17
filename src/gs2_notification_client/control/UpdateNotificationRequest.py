@@ -53,7 +53,7 @@ class UpdateNotificationRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
-        if notification_name and not isinstance(notification_name, unicode):
+        if notification_name and not (isinstance(notification_name, str) or isinstance(notification_name, unicode)):
             raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
@@ -82,7 +82,7 @@ class UpdateNotificationRequest(Gs2BasicRequest):
         :param description: 通知の説明
         :type description: unicode
         """
-        if description and not isinstance(description, unicode):
+        if description and not (isinstance(description, str) or isinstance(description, unicode)):
             raise TypeError(type(description))
         self.__description = description
 

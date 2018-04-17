@@ -53,7 +53,7 @@ class DeleteSubscribeRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
-        if notification_name and not isinstance(notification_name, unicode):
+        if notification_name and not (isinstance(notification_name, str) or isinstance(notification_name, unicode)):
             raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
@@ -82,7 +82,7 @@ class DeleteSubscribeRequest(Gs2BasicRequest):
         :param subscribe_id: 削除する購読IDを指定します。
         :type subscribe_id: unicode
         """
-        if subscribe_id and not isinstance(subscribe_id, unicode):
+        if subscribe_id and not (isinstance(subscribe_id, str) or isinstance(subscribe_id, unicode)):
             raise TypeError(type(subscribe_id))
         self.__subscribe_id = subscribe_id
 
