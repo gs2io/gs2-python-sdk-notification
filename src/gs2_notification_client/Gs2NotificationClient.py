@@ -16,6 +16,7 @@
 
 from gs2_core_client.Gs2Constant import Gs2Constant
 from gs2_core_client.AbstractGs2Client import AbstractGs2Client
+from aws_sdk_for_serverless.common import url_encoder
 
 
 class Gs2NotificationClient(AbstractGs2Client):
@@ -76,7 +77,7 @@ class Gs2NotificationClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_notification_client.control.DeleteNotificationRequest import DeleteNotificationRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "",
             service=self.ENDPOINT,
             component=DeleteNotificationRequest.Constant.MODULE,
             target_function=DeleteNotificationRequest.Constant.FUNCTION,
@@ -130,7 +131,7 @@ class Gs2NotificationClient(AbstractGs2Client):
 
         from gs2_notification_client.control.GetNotificationResult import GetNotificationResult
         return GetNotificationResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "",
             service=self.ENDPOINT,
             component=GetNotificationRequest.Constant.MODULE,
             target_function=GetNotificationRequest.Constant.FUNCTION,
@@ -158,7 +159,7 @@ class Gs2NotificationClient(AbstractGs2Client):
         from gs2_notification_client.control.UpdateNotificationRequest import UpdateNotificationRequest
         from gs2_notification_client.control.UpdateNotificationResult import UpdateNotificationResult
         return UpdateNotificationResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "",
             service=self.ENDPOINT,
             component=UpdateNotificationRequest.Constant.MODULE,
             target_function=UpdateNotificationRequest.Constant.FUNCTION,
@@ -187,7 +188,7 @@ class Gs2NotificationClient(AbstractGs2Client):
         from gs2_notification_client.control.CreateSubscribeRequest import CreateSubscribeRequest
         from gs2_notification_client.control.CreateSubscribeResult import CreateSubscribeResult
         return CreateSubscribeResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "/subscribe",
             service=self.ENDPOINT,
             component=CreateSubscribeRequest.Constant.MODULE,
             target_function=CreateSubscribeRequest.Constant.FUNCTION,
@@ -209,7 +210,7 @@ class Gs2NotificationClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_notification_client.control.DeleteSubscribeRequest import DeleteSubscribeRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else request.get_subscribe_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else url_encoder.encode(request.get_subscribe_id()))) + "",
             service=self.ENDPOINT,
             component=DeleteSubscribeRequest.Constant.MODULE,
             target_function=DeleteSubscribeRequest.Constant.FUNCTION,
@@ -237,7 +238,7 @@ class Gs2NotificationClient(AbstractGs2Client):
 
         from gs2_notification_client.control.DescribeSubscribeResult import DescribeSubscribeResult
         return DescribeSubscribeResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "/subscribe",
             service=self.ENDPOINT,
             component=DescribeSubscribeRequest.Constant.MODULE,
             target_function=DescribeSubscribeRequest.Constant.FUNCTION,
@@ -263,7 +264,7 @@ class Gs2NotificationClient(AbstractGs2Client):
 
         from gs2_notification_client.control.GetSubscribeResult import GetSubscribeResult
         return GetSubscribeResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else request.get_notification_name())) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else request.get_subscribe_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/notification/" + str(("null" if request.get_notification_name() is None or request.get_notification_name() == "" else url_encoder.encode(request.get_notification_name()))) + "/subscribe/" + str(("null" if request.get_subscribe_id() is None or request.get_subscribe_id() == "" else url_encoder.encode(request.get_subscribe_id()))) + "",
             service=self.ENDPOINT,
             component=GetSubscribeRequest.Constant.MODULE,
             target_function=GetSubscribeRequest.Constant.FUNCTION,
