@@ -33,7 +33,6 @@ class DescribeNotificationResult(object):
             )
         )
         self.__next_page_token = unicode(response['nextPageToken']) if 'nextPageToken' in response.keys() and response['nextPageToken'] is not None else None
-
     def get_items(self):
         """
         通知を取得
@@ -41,7 +40,6 @@ class DescribeNotificationResult(object):
         :rtype: list[Notification]
         """
         return self.__items
-
     def get_next_page_token(self):
         """
         次のページを読み込むためのトークンを取得
@@ -49,6 +47,12 @@ class DescribeNotificationResult(object):
         :rtype: unicode
         """
         return self.__next_page_token
+
+    def __getitem__(self, key):
+        items = self.to_dict()
+        if key in items.keys():
+            return items[key]
+        return super(DescribeNotificationResult, self).__getitem__(key)
 
     def to_dict(self):
         """
