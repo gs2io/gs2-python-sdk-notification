@@ -49,7 +49,7 @@ class GetNotificationRequest(Gs2BasicRequest):
         :param notification_name: 通知の名前を指定します。
         :type notification_name: unicode
         """
-        if notification_name and not (isinstance(notification_name, str) or isinstance(notification_name, unicode)):
+        if notification_name is not None and not (isinstance(notification_name, str) or isinstance(notification_name, unicode)):
             raise TypeError(type(notification_name))
         self.__notification_name = notification_name
 
