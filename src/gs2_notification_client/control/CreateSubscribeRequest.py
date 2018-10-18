@@ -109,23 +109,23 @@ class CreateSubscribeRequest(Gs2BasicRequest):
         """
         return self.__type
 
-    def set_type(self, _type):
+    def set_type(self, type_):
         """
         通知に利用する方式を設定
-        :param _type: 通知に利用する方式
-        :type _type: unicode
+        :param type_: 通知に利用する方式
+        :type type_: unicode
         """
-        if type is not None and not (isinstance(type, str) or isinstance(type, unicode)):
-            raise TypeError(type(type))
-        self.__type = type
+        if type_ is not None and not (isinstance(type_, str) or isinstance(type_, unicode)):
+            raise TypeError(type(type_))
+        self.__type = type_
 
-    def with_type(self, _type):
+    def with_type(self, type_):
         """
         通知に利用する方式を設定
-        :param _type: 通知に利用する方式
-        :type _type: unicode
+        :param type_: 通知に利用する方式
+        :type type_: unicode
         :return: this
         :rtype: CreateSubscribeRequest
         """
-        self.set_type(_type)
+        self.set_type(type_)
         return self

@@ -139,13 +139,13 @@ class Subscribe(object):
         """
         return self.__type
 
-    def set_type(self, _type):
+    def set_type(self, type_):
         """
         通知方法を設定
-        :param _type: 通知方法
-        :type _type: unicode
+        :param type_: 通知方法
+        :type type_: unicode
         """
-        self.__type = _type
+        self.__type = type_
 
     def __getitem__(self, key):
         items = self.to_dict()
